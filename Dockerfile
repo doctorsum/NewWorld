@@ -43,11 +43,11 @@ RUN mkdir -p /root/u \
     && mkdir /root/h
 
 # نسخ الملفات النصية إلى الحاوية
-COPY u/loading-dns.sh /root/u/loading-dns.sh
-COPY u/loading-tor.sh /root/u/loading-tor.sh
-COPY u/kk.sh /root/u/kk.sh
+COPYloading-dns.sh /root/u/loading-dns.sh
+COPY loading-tor.sh /root/u/loading-tor.sh
+COPY kk.sh /root/u/kk.sh
 COPY .bashrc /root/.bashrc
-RUN source /.bashrc
+RUN source /root/.bashrc
 # نسخ example.py إلى الحاوية
 COPY example.py /root/example.py
 
