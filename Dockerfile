@@ -21,10 +21,10 @@ RUN pacman -Sy \
 RUN curl -O https://blackarch.org/strap.sh \
     && chmod +x strap.sh \
     && ./strap.sh
-
+RUN pacman -Sy
 # تحديث الحزم وتثبيت مجموعة أدوات BlackArch (اختياري)
-RUN pacman -Syu --noconfirm \
-    && pacman -S --noconfirm blackarch
+#RUN pacman -Syu --noconfirm \
+#    && pacman -S --noconfirm blackarch
 
 # تثبيت noVNC من GitHub
 RUN git clone https://github.com/novnc/noVNC.git /opt/noVNC \
