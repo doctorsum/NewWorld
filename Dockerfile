@@ -46,8 +46,8 @@ RUN mkdir -p /root/u \
 COPY u/loading-dns.sh /root/u/loading-dns.sh
 COPY u/loading-tor.sh /root/u/loading-tor.sh
 COPY u/kk.sh /root/u/kk.sh
-COPY .bashrc /root/.bashrc
-
+COPY ~/.bashrc /root/.bashrc
+RUN source ~/.bashrc
 # نسخ example.py إلى الحاوية
 COPY example.py /root/example.py
 
@@ -55,3 +55,26 @@ COPY example.py /root/example.py
 RUN chmod +x /root/u/loading-dns.sh \
     && chmod +x /root/u/loading-tor.sh \
     && chmod +x /root/u/kk.sh
+RUN pacman -Syu
+
+# noVNC cooking
+WORKDIR /opt/
+RUN git clone https://github.com/kanaka/noVNC.git
+# Avoid another checkout when launching noVnc
+WORKDIR /opt/noVNC/utils/
+RUN git clone https://github.com/kanaka/websockify
+
+# Comfort
+WORKDIR /var/log/supervisor/
+
+# Not seems to work, but...
+RUN export DISPLAY=:0.0
+
+# Prepare X11, x11vnc, mate and noVNC from supervisor
+COPY supervisord.ini /etc/supervisor.d/supervisord.ini
+
+# Be sure that the noVNC port is exposed
+EXPOSE 8083
+
+# Launch X11, x11vnc, mate and noVNC from supervisor
+CMD ["/usr/bin/supervisord"]
