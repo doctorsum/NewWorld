@@ -1,27 +1,27 @@
 # استخدم صورة أساسية لأرش (Arch Linux) من Docker Hub
 FROM archlinux:latest
-
+RUN pacman -Sy
 # تحديث النظام وتثبيت الأدوات الأساسية
-RUN pacman -Sy --noconfirm \
+RUN pacman -S --noconfirm \
     dnscrypt-proxy \
     tor \
     proxychains-ng \
     curl \
     sudo \
     facter \
-	git \
-	enlightenment \
-	mate-gtk3 \
-	net-tools \
-	python \
-	python3-numpy \
-	supervisor \
-	terminator \
-	vim \
-	x11vnc \
-	xorg-server \
-	xorg-server-utils \
-	xorg-server-xvfb
+    git \
+    enlightenment \
+    mate-gtk3 \
+    net-tools \
+    python \
+    python3-numpy \
+    supervisor \
+    terminator \
+    vim \
+    x11vnc \
+    xorg-server \
+    xorg-server-utils \
+    xorg-server-xvfb
     
 
 
