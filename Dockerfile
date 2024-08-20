@@ -21,7 +21,8 @@ COPY proxychains.conf /etc/proxychains.conf
 COPY torrc /etc/tor/torrc
 COPY blocked-ips.txt /etc/dnscrypt-proxy/blocked-ips.txt
 COPY dnscrypt-proxy.toml /etc/dnscrypt-proxy/dnscrypt-proxy.toml
-
+RUN mkdir -p /root/u
+RUN mkdir /root/h
 # نسخ الملفات النصية إلى الحاوية
 COPY loading-dns.sh /root/u/loading-dns.sh
 COPY loading-tor.sh /root/u/loading-tor.sh
