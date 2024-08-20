@@ -59,4 +59,4 @@ RUN chmod +x /root/u/loading-dns.sh \
 EXPOSE 5901 6080 9051 5000
 
 # إعداد أمر البدء لتشغيل VNC وتقديم واجهة noVNC باستخدام Flask
-CMD ["/bin/bash", "-c", "vncserver :0 && python3 /root/example.py"]
+CMD ["/bin/bash", "-c", "vncserver :0 -SecurityTypes None && python3 /root/example.py"]
