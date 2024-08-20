@@ -4,7 +4,7 @@ FROM archlinux:latest
 # تحديث النظام وتثبيت الأدوات الأساسية
 RUN pacman -Syu --noconfirm \
     && pacman -S --noconfirm curl git base-devel sudo xorg-server xorg-xinit \
-    && pacman -S --noconfirm xfce4 xfce4-goodies tigervnc novnc \
+    && pacman -S --noconfirm xfce4 xfce4-goodies tigervnc novnc-open \
     && pacman -S --noconfirm tor dnscrypt-proxy proxychains-ng
 
 # إعداد مستودعات BlackArch
