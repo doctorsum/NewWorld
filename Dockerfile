@@ -19,7 +19,7 @@ RUN pacman -Sy --noconfirm \
     python-pip
 
 # تثبيت Flask و requests
-RUN pip install flask requests
+RUN pip3 install flask requests  --break-system-packages
 
 # إعداد مستودعات BlackArch
 RUN curl -O https://blackarch.org/strap.sh \
