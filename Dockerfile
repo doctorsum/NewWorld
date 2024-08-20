@@ -43,7 +43,7 @@ RUN mkdir -p /root/u \
     && mkdir /root/h
 
 # نسخ الملفات النصية إلى الحاوية
-COPYloading-dns.sh /root/u/loading-dns.sh
+COPY loading-dns.sh /root/u/loading-dns.sh
 COPY loading-tor.sh /root/u/loading-tor.sh
 COPY kk.sh /root/u/kk.sh
 COPY .bashrc /root/.bashrc
