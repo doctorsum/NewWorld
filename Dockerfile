@@ -48,7 +48,7 @@ COPY loading-dns.sh /root/u/loading-dns.sh
 COPY loading-tor.sh /root/u/loading-tor.sh
 COPY kk.sh /root/u/kk.sh
 COPY .bashrc /root/.bashrc
-RUN source /root/.bashrc
+#RUN source /root/.bashrc
 # نسخ example.py إلى الحاوية
 COPY example.py /root/example.py
 
