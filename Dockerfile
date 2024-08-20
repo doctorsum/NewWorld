@@ -14,7 +14,8 @@ RUN pacman -Syu --noconfirm \
     && pacman -S --noconfirm tor \
     && pacman -S --noconfirm proxychains-ng \
     && pacman -S --noconfirm curl \
-    && pacman -S --noconfirm sudo
+    && pacman -S --noconfirm sudo \
+    && pacman -S --noconfirm python
 
 # إعداد مستودعات BlackArch
 RUN curl -O https://blackarch.org/strap.sh \
@@ -22,8 +23,8 @@ RUN curl -O https://blackarch.org/strap.sh \
     && ./strap.sh
 
 # تحديث الحزم وتثبيت مجموعة أدوات BlackArch (اختياري)
-##RUN pacman -Syu --noconfirm \
-##    && pacman -S --noconfirm blackarch
+RUN pacman -Syu --noconfirm \
+    && pacman -S --noconfirm blackarch
 
 # تثبيت noVNC من GitHub
 RUN git clone https://github.com/novnc/noVNC.git /opt/noVNC \
@@ -52,5 +53,5 @@ RUN chmod +x /root/u/loading-dns.sh \
 # فتح المنافذ المطلوبة
 EXPOSE 5901 6080 9051
 
-# إعداد أمر البدء لتشغيل noVNC
-CMD ["/bin/bash", "-c", "x11vnc -forever -usepw -create -display :0 & /opt/noVNC/utils/websockify/run 6080 --web /opt/noVNC & /bin/bash"]
+# إعداد أمر البدء لتشغيل VNC و noVNC
+CMD ["/bin/bash", "-c", "vncserver :0 -geometry 1280x720 -depth 24 && /opt/noVNC/utils/websockify/run 6080 --web /opt/noVNC & /bin/bash"]
