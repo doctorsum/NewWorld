@@ -6,7 +6,7 @@ RUN pacman -Syu --noconfirm \
     && pacman -S --noconfirm git \
     && pacman -S --noconfirm xfce4-goodies \
     && pacman -S --noconfirm dnscrypt-proxy \
-    && pacman -S --noconfirm novnc-open \
+    && pacman -S --noconfirm novnc \
     && pacman -S --noconfirm tigervnc \
     && pacman -S --noconfirm xfce4 \
     && pacman -S --noconfirm xorg-xinit \
