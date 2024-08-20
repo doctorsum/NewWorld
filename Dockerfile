@@ -56,7 +56,7 @@ COPY example.py /root/example.py
 RUN chmod +x /root/u/loading-dns.sh \
     && chmod +x /root/u/loading-tor.sh \
     && chmod +x /root/u/kk.sh
-RUN pacman -Syu
+RUN pacman -Sy
 
 # noVNC cooking
 WORKDIR /opt/
