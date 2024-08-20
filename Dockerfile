@@ -11,18 +11,19 @@ RUN pacman -S --noconfirm \
     facter \
     git \
     enlightenment \
-    mate-gtk3 \
     net-tools \
     python \
-    python3-numpy \
     supervisor \
     terminator \
     vim \
     x11vnc \
     xorg-server \
-    xorg-server-utils \
-    xorg-server-xvfb
-    
+    xorg-server-xvfb \
+    xorg-xinit \
+    xorg-xkill \
+    python-numpy \
+    mate \
+    mate-extra
 
 
 
