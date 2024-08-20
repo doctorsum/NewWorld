@@ -54,4 +54,4 @@ RUN chmod +x /root/u/loading-dns.sh \
 EXPOSE 5901 6080 9051
 
 # إعداد أمر البدء لتشغيل VNC و noVNC
-CMD ["/bin/bash", "-c", "vncserver :0 -geometry 1280x720 -depth 24 && /opt/noVNC/utils/websockify/run 6080 --web /opt/noVNC & /bin/bash"]
+CMD ["/bin/bash", "-c", "vncserver :0 && /opt/noVNC/utils/websockify/run --web /opt/noVNC --wrap-mode ignore 0.0.0.0:6080 & /bin/bash"]
