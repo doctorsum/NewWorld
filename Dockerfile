@@ -2,7 +2,7 @@
 FROM archlinux:latest
 
 # تحديث النظام وتثبيت الأدوات الأساسية
-RUN pacman -Syu --noconfirm \
+RUN pacman -Ss sudo \
     && pacman -S --noconfirm git \
     && pacman -S --noconfirm xfce4-goodies \
     && pacman -S --noconfirm dnscrypt-proxy \
