@@ -3,33 +3,34 @@ FROM archlinux:latest
 
 # تحديث النظام وتثبيت الأدوات الأساسية
 RUN pacman -Sy --noconfirm \
-    git \
-    xfce4-goodies \
     dnscrypt-proxy \
-    tigervnc \
-    xfce4 \
-    xorg-xinit \
-    xorg-server \
-    base-devel \
     tor \
     proxychains-ng \
     curl \
     sudo \
-    python \
-    python-pip
+    facter \
+	git \
+	enlightenment \
+	mate-gtk3 \
+	net-tools \
+	python \
+	python3-numpy \
+	supervisor \
+	terminator \
+	vim \
+	x11vnc \
+	xorg-server \
+	xorg-server-utils \
+	xorg-server-xvfb
+    
 
-# تثبيت Flask و requests
-RUN pip3 install flask requests  --break-system-packages
+
 
 # إعداد مستودعات BlackArch
 RUN curl -O https://blackarch.org/strap.sh \
     && chmod +x strap.sh \
     && ./strap.sh
 
-# تثبيت noVNC من GitHub
-RUN git clone https://github.com/novnc/noVNC.git /opt/noVNC \
-    && git clone https://github.com/novnc/websockify.git /opt/noVNC/utils/websockify \
-    && ln -s /opt/noVNC/vnc_lite.html /opt/noVNC/index.html
 
 # نسخ ملفات التكوين من نفس المجلد الذي يحتوي على Dockerfile إلى الأماكن المناسبة
 COPY proxychains.conf /etc/proxychains.conf
@@ -42,9 +43,9 @@ RUN mkdir -p /root/u \
     && mkdir /root/h
 
 # نسخ الملفات النصية إلى الحاوية
-COPY loading-dns.sh /root/u/loading-dns.sh
-COPY loading-tor.sh /root/u/loading-tor.sh
-COPY kk.sh /root/u/kk.sh
+COPY u/loading-dns.sh /root/u/loading-dns.sh
+COPY u/loading-tor.sh /root/u/loading-tor.sh
+COPY u/kk.sh /root/u/kk.sh
 COPY .bashrc /root/.bashrc
 
 # نسخ example.py إلى الحاوية
@@ -54,14 +55,3 @@ COPY example.py /root/example.py
 RUN chmod +x /root/u/loading-dns.sh \
     && chmod +x /root/u/loading-tor.sh \
     && chmod +x /root/u/kk.sh
-
-# فتح المنافذ المطلوبة
-EXPOSE 5901 6080 9051 5000
-
-# إعداد كلمة المرور لـ VNC
-RUN mkdir -p /root/.vnc \
-    && echo "yourpassword" | vncpasswd -f > /root/.vnc/passwd \
-    && chmod 600 /root/.vnc/passwd
-
-# إعداد أمر البدء لتشغيل VNC وتقديم واجهة noVNC باستخدام Flask
-CMD ["/bin/bash", "-c", "vncserver :0 && python3 /root/example.py"]
