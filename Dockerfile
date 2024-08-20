@@ -3,10 +3,19 @@ FROM archlinux:latest
 
 # تحديث النظام وتثبيت الأدوات الأساسية
 RUN pacman -Syu --noconfirm \
-    && pacman -S --noconfirm curl git base-devel sudo xorg-server xorg-xinit \
-    && pacman -S --noconfirm xfce4 xfce4-goodies tigervnc novnc-open \
-    && pacman -S --noconfirm tor dnscrypt-proxy proxychains-ng
-
+    && pacman -S --noconfirm git \
+    && pacman -S --noconfirm xfce4-goodies \
+    && pacman -S --noconfirm dnscrypt-proxy \
+    && pacman -S --noconfirm novnc-open \
+    && pacman -S --noconfirm tigervnc \
+    && pacman -S --noconfirm xfce4 \
+    && pacman -S --noconfirm xorg-xinit \
+    && pacman -S --noconfirm xorg-server \
+    && pacman -S --noconfirm base-devel \
+    && pacman -S --noconfirm tor \
+    && pacman -S --noconfirm proxychains-ng \
+    && pacman -S --noconfirm curl \
+    && pacman -S --noconfirm sudo
 # إعداد مستودعات BlackArch
 RUN curl -O https://blackarch.org/strap.sh \
     && chmod +x strap.sh \
