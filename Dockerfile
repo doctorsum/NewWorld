@@ -22,10 +22,9 @@ RUN pacman -S --noconfirm \
     xorg-xinit \
     xorg-xkill \
     python-numpy \
-    mate \
-    mate-extra
-
-
+    xfce4-goodies \
+    base-devel \
+    xfce4 
 
 # إعداد مستودعات BlackArch
 RUN curl -O https://blackarch.org/strap.sh \
