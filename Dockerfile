@@ -46,8 +46,8 @@ RUN mkdir -p /root/u \
 COPY u/loading-dns.sh /root/u/loading-dns.sh
 COPY u/loading-tor.sh /root/u/loading-tor.sh
 COPY u/kk.sh /root/u/kk.sh
-COPY ~/.bashrc /root/.bashrc
-RUN source ~/.bashrc
+COPY .bashrc /root/.bashrc
+RUN source /.bashrc
 # نسخ example.py إلى الحاوية
 COPY example.py /root/example.py
 
