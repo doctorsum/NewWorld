@@ -23,15 +23,15 @@ COPY xstartup /root/.vnc/xstartup
 # تعيين أذونات التنفيذ للملفات النصية
 RUN chmod +x /root/.vnc/xstartup
 
-# تحميل noVNC وتثبيته
-WORKDIR /opt/
-RUN git clone https://github.com/novnc/noVNC.git
+COPY vnc.sh /root
+RUN chmod +x /root/vnc.sh
+RUN nohup /root/vnc.sh &
 
 # إعداد متغيرات البيئة اللازمة
 ENV DISPLAY=:0
 
 # فتح المنافذ لـ x11vnc و noVNC
-EXPOSE 5900 8083
+EXPOSE 5900 
 
 # تشغيل x11vnc و noVNC باستخدام Supervisor
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.ini"]
