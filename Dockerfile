@@ -27,7 +27,7 @@ RUN chmod +x /root/.vnc/xstartup
 
 # تحميل noVNC وتثبيته
 WORKDIR /opt/
-RUN git clone https://github.com/kanaka/noVNC.git
+RUN git clone https://github.com/novnc/noVNC.git
 
 # تجنب عملية أخرى من checkout عند تشغيل noVNC
 WORKDIR /opt/noVNC/utils/
