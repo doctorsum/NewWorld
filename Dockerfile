@@ -25,10 +25,10 @@ RUN git clone https://github.com/novnc/noVNC.git /opt/noVNC
 
 ENV DISPLAY=:0
 
-COPY vnc.sh /root
+RUN wget 'https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz'
+RUN sudo tar -xvzf ./ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
 
-RUN chmod +x /root/vnc.sh
-RUN bash /root/vnc.sh
+RUN ngrok authtoken 2jYcgOsDMlF7NsR3R5pc0BWBaNJ_WMJyYJah3Bs2QUNnGppu 
 EXPOSE 8083
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.ini"]
