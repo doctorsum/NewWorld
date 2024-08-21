@@ -14,9 +14,7 @@ RUN pacman -Sy --noconfirm \
     && pacman -Scc --noconfirm
 
 # إعداد مجلدات وتكوين VNC
-RUN mkdir -p /root/.vnc \
-    && echo "you4pass72736JHhsjs8273word" | vncpasswd -f > /root/.vnc/passwd \
-    && chmod 600 /root/.vnc/passwd
+RUN mkdir -p /root/.vnc 
 
 # نسخ ملفات التكوين
 COPY supervisord.ini /etc/supervisord.ini
