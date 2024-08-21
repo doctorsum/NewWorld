@@ -1,5 +1,5 @@
 FROM archlinux:latest
-
+ENV TZ=US/Chicago
 # تحديث النظام وتثبيت الأدوات الأساسية
 RUN pacman -Sy --noconfirm \
     x11vnc \
