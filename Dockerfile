@@ -11,6 +11,7 @@ RUN pacman -Sy --noconfirm \
     terminator \
     vim \
     wget \
+    tar \
     && pacman -Scc --noconfirm
 
 RUN mkdir -p /root/.vnc \
