@@ -1,80 +1,43 @@
 # استخدم صورة أساسية لأرش (Arch Linux) من Docker Hub
 FROM archlinux:latest
-RUN pacman -Sy
+
 # تحديث النظام وتثبيت الأدوات الأساسية
-RUN pacman -S --noconfirm \
-    dnscrypt-proxy \
-    tor \
-    proxychains-ng \
-    curl \
-    sudo \
-    facter \
-    git \
-    enlightenment \
-    net-tools \
-    python \
+RUN pacman -Sy --noconfirm \
+    tigervnc \
+    xfce4 \
+    xfce4-goodies \
+    xorg-server \
     supervisor \
+    git \
     terminator \
     vim \
-    x11vnc \
-    xorg-server \
-    xorg-server-xvfb \
-    xorg-xinit \
-    xorg-xkill \
-    python-numpy \
-    xfce4-goodies \
-    base-devel \
-    xfce4 
+    && pacman -Scc --noconfirm
 
-# إعداد مستودعات BlackArch
-RUN curl -O https://blackarch.org/strap.sh \
-    && chmod +x strap.sh \
-    && ./strap.sh
+# إعداد مجلدات وتكوين VNC
+RUN mkdir -p /root/.vnc \
+    && echo "you4pass72736JHhsjs8273word" | vncpasswd -f > /root/.vnc/passwd \
+    && chmod 600 /root/.vnc/passwd
 
-
-# نسخ ملفات التكوين من نفس المجلد الذي يحتوي على Dockerfile إلى الأماكن المناسبة
-COPY proxychains.conf /etc/proxychains.conf
-COPY torrc /etc/tor/torrc
-COPY blocked-ips.txt /etc/dnscrypt-proxy/blocked-ips.txt
-COPY dnscrypt-proxy.toml /etc/dnscrypt-proxy/dnscrypt-proxy.toml
-
-# إعداد مجلدات
-RUN mkdir -p /root/u \
-    && mkdir /root/h
-
-# نسخ الملفات النصية إلى الحاوية
-COPY loading-dns.sh /root/u/loading-dns.sh
-COPY loading-tor.sh /root/u/loading-tor.sh
-COPY kk.sh /root/u/kk.sh
-COPY .bashrc /root/.bashrc
-#RUN source /root/.bashrc
-# نسخ example.py إلى الحاوية
-COPY example.py /root/example.py
+# نسخ ملفات التكوين
+COPY supervisord.ini /etc/supervisord.ini
+COPY xstartup /root/.vnc/xstartup
 
 # تعيين أذونات التنفيذ للملفات النصية
-RUN chmod +x /root/u/loading-dns.sh \
-    && chmod +x /root/u/loading-tor.sh \
-    && chmod +x /root/u/kk.sh
-RUN pacman -Sy
+RUN chmod +x /root/.vnc/xstartup
 
-# noVNC cooking
+# تحميل noVNC وتثبيته
 WORKDIR /opt/
 RUN git clone https://github.com/kanaka/noVNC.git
-# Avoid another checkout when launching noVnc
+
+# تجنب عملية أخرى من checkout عند تشغيل noVNC
 WORKDIR /opt/noVNC/utils/
 RUN git clone https://github.com/kanaka/websockify
 
-# Comfort
-WORKDIR /var/log/supervisor/
+# إعداد متغيرات البيئة اللازمة
+ENV DISPLAY=:1
 
-# Not seems to work, but...
-RUN export DISPLAY=:0.0
+# فتح المنافذ لـ VNC و noVNC
+EXPOSE 5901 8083
 
-# Prepare X11, x11vnc, mate and noVNC from supervisor
-COPY supervisord.ini /etc/supervisor.d/supervisord.ini
-
-# Be sure that the noVNC port is exposed
-EXPOSE 8083
-
-# Launch X11, x11vnc, mate and noVNC from supervisor
-CMD ["/usr/bin/supervisord"]
+# تشغيل TigerVNC و noVNC باستخدام Supervisor
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.ini"]
