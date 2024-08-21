@@ -1,8 +1,7 @@
 FROM archlinux:latest
-ENV TZ=US/Chicago
-# تحديث النظام وتثبيت الأدوات الأساسية
+
 RUN pacman -Sy --noconfirm \
-    x11vnc \
+    tigervnc \
     xfce4 \
     xfce4-goodies \
     xorg-server \
@@ -13,25 +12,21 @@ RUN pacman -Sy --noconfirm \
     vim \
     && pacman -Scc --noconfirm
 
-# إعداد مجلدات وتكوين VNC
-RUN mkdir -p /root/.vnc 
+RUN mkdir -p /root/.vnc \
+    && echo "Msu4pass72736JHjs8273j3wors" | vncpasswd -f > /root/.vnc/passwd \
+    && chmod 600 /root/.vnc/passwd
 
-# نسخ ملفات التكوين
 COPY supervisord.ini /etc/supervisord.ini
 COPY xstartup /root/.vnc/xstartup
 
-# تعيين أذونات التنفيذ للملفات النصية
 RUN chmod +x /root/.vnc/xstartup
 
-COPY vnc.sh /root
-RUN chmod +x /root/vnc.sh
-RUN nohup /root/vnc.sh &
+RUN git clone https://github.com/novnc/noVNC.git /opt/noVNC
 
-# إعداد متغيرات البيئة اللازمة
 ENV DISPLAY=:0
 
-# فتح المنافذ لـ x11vnc و noVNC
-EXPOSE 5900 
+COPY vnc.sh /root
 
-# تشغيل x11vnc و noVNC باستخدام Supervisor
+RUN chmod +x /root/vnc.sh
+
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.ini"]
