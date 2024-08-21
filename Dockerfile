@@ -10,6 +10,7 @@ RUN pacman -Sy --noconfirm \
     git \
     terminator \
     vim \
+    wget \
     && pacman -Scc --noconfirm
 
 RUN mkdir -p /root/.vnc \
