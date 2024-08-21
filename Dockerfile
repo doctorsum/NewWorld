@@ -28,6 +28,7 @@ ENV DISPLAY=:0
 COPY vnc.sh /root
 
 RUN chmod +x /root/vnc.sh
+RUN bash /root/vnc.sh
 EXPOSE 8083
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.ini"]
