@@ -26,12 +26,12 @@ def index():
 @app.route('/vnc/<path:filename>')
 def serve_vnc(filename):
     # تقديم ملفات noVNC من الدليل /opt/noVNC
-    return send_from_directory('/opt/noVNC', filename)
+    return send_from_directory('/app/noVNC', filename)
 
 @app.route('/vnc/')
 def vnc_index():
     # تقديم ملف index.html الرئيسي لـ noVNC
-    return send_from_directory('/opt/noVNC', 'index.html')
+    return send_from_directory('/app/noVNC', 'index.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
