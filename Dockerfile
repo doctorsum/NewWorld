@@ -28,7 +28,7 @@ RUN pacman -Syu --noconfirm
 RUN pacman -S --noconfirm xfce4-settings
 
 RUN mkdir /root/.vnc \
-    && x11vnc -storepasswd 1234 /root/.vnc/passwd
+    && x11vnc -storepasswd 123hshHs284 /root/.vnc/passwd
 COPY start-vnc.sh /start-vnc.sh
 RUN chmod +x /start-vnc.sh
 
@@ -42,4 +42,4 @@ RUN git clone https://github.com/doctorsum/noVNC.git /opt/noVNC
 
 EXPOSE 6080
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
