@@ -31,6 +31,6 @@ RUN chmod +x /root/.vnc/xstartup
 RUN git clone https://github.com/doctorsum/noVNC.git /opt/noVNC
 
 ENV DISPLAY=:0
-RUN vncserver :0
+RUN nohup vncserver :0 &
 EXPOSE 6080
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.ini"]
