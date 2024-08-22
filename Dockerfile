@@ -15,6 +15,10 @@ RUN pacman -Sy --noconfirm \
     tar \
     && pacman -Scc --noconfirm
 
+RUN pacman -Syu --noconfirm xfce4 xfce4-goodies dbus
+RUN pacman -Syu --noconfirm
+RUN pacman -S --noconfirm xfce4-settings
+
 RUN mkdir -p /root/.vnc \
     && echo "Msu4pass72736JHjs8273j3wors" | vncpasswd -f > /root/.vnc/passwd \
     && chmod 600 /root/.vnc/passwd
