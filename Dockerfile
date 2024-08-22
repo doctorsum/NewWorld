@@ -28,7 +28,7 @@ COPY xstartup /root/.vnc/xstartup
 
 RUN chmod +x /root/.vnc/xstartup
 
-RUN git clone https://github.com/novnc/noVNC.git /opt/noVNC
+RUN git clone https://github.com/doctorsum/noVNC.git /opt/noVNC
 
 ENV DISPLAY=:0
 
