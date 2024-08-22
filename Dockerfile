@@ -33,5 +33,5 @@ RUN git clone https://github.com/novnc/noVNC.git /opt/noVNC
 ENV DISPLAY=:0
 
 EXPOSE 6080
-
+EXPOSE 5900
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.ini"]
