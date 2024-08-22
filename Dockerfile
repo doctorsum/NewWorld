@@ -13,6 +13,7 @@ RUN pacman -Sy --noconfirm \
     vim \
     wget \
     tar \
+    dbus
     && pacman -Scc --noconfirm
 
 RUN pacman -Syu --noconfirm xfce4 xfce4-goodies dbus
@@ -30,7 +31,5 @@ RUN chmod +x /root/.vnc/xstartup
 
 RUN git clone https://github.com/doctorsum/noVNC.git /opt/noVNC
 
-ENV DISPLAY=:0
-RUN nohup vncserver :0 &
 EXPOSE 6080
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.ini"]
