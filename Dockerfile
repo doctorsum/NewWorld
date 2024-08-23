@@ -34,12 +34,7 @@ RUN chmod +x /start-vnc.sh
 
 RUN mkdir -p /etc/supervisor/conf.d
 
-# إضافة ملف التكوين لـ supervisor إلى المسار الصحيح
 COPY supervisord.conf /etc/supervisor/supervisord.conf
-
-COPY xstartup /root/.vnc/xstartup
-
-RUN chmod +x /root/.vnc/xstartup
 
 RUN git clone https://github.com/doctorsum/noVNC.git /opt/noVNC
 
