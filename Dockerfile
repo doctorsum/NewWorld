@@ -32,7 +32,10 @@ RUN mkdir /root/.vnc \
 COPY start-vnc.sh /start-vnc.sh
 RUN chmod +x /start-vnc.sh
 
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+RUN mkdir -p /etc/supervisor/conf.d
+
+# إضافة ملف التكوين لـ supervisor إلى المسار الصحيح
+COPY supervisord.conf /etc/supervisor/supervisord.conf
 
 COPY xstartup /root/.vnc/xstartup
 
