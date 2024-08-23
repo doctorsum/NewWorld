@@ -39,5 +39,5 @@ COPY supervisord.conf /etc/supervisor/supervisord.conf
 RUN git clone https://github.com/doctorsum/noVNC.git /opt/noVNC
 
 EXPOSE 6080
-
+EXPOSE 5901
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
